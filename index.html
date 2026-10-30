@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d0b">
+  <meta name="description" content="RAVEX PLAY, tu centro de videojuegos.">
+  <title>RAVEX PLAY</title>
+
+  <style>
+    :root {
+      --bg: #0b0d0b;
+      --panel: #141714;
+      --panel2: #1c211c;
+      --green: #70f58a;
+      --text: #f4f7f4;
+      --muted: #929a92;
+      --border: #292f29;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
+
+    button, input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 225px minmax(0, 1fr);
+    }
+
+    aside {
+      padding: 28px 17px;
+      background: #101210;
+      border-right: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin: 0 0 40px 7px;
+    }
+
+    .logo-mark {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      border-radius: 11px;
+      background: var(--green);
+      color: #071109;
+      font-size: 22px;
+    }
+
+    .nav-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      margin: 22px 10px 10px;
+    }
+
+    .nav-btn {
+      width: 100%;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      border: 0;
+      padding: 12px;
+      margin: 4px 0;
+      text-align: left;
+      color: #c4cbc4;
+      background: transparent;
+      border-radius: 10px;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      color: var(--green);
+      background: #202920;
+    }
+
+    .sidebar-bottom {
+      margin: 35px 7px 0;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    main {
+      min-width: 0;
+      padding: 28px clamp(18px, 4vw, 48px);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .search {
+      width: min(440px, 100%);
+      padding: 13px 16px;
+      color: var(--text);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+    }
+
+    .search:focus {
+      border-color: var(--green);
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #263c29;
+      color: var(--green);
+      font-weight: 900;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(28px, 5vw, 55px);
+      border: 1px solid #304833;
+      border-radius: 23px;
+      background:
+        radial-gradient(ellipse at 85% 30%, #244a2b 0, transparent 42%),
+        linear-gradient(120deg, #1a261b, #101410 72%);
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+    }
+
+    .hero h1 {
+      max-width: 600px;
+      font-size: clamp(35px, 5vw, 60px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+      margin-bottom: 17px;
+    }
+
+    .hero p {
+      max-width: 490px;
+      color: #b7c2b7;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .primary, .secondary {
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 17px;
+      font-weight: 800;
+    }
+
+    .primary {
+      color: #071109;
+      background: var(--green);
+    }
+
+    .primary:hover {
+      background: #a0ffaf;
+      transform: translateY(-1px);
+    }
+
+    .secondary {
+      color: var(--text);
+      background: #272d27;
+      border: 1px solid #394239;
+    }
+
+    .hero-symbol {
+      position: absolute;
+      right: 7%;
+      top: 50%;
+      transform: translateY(-50%) rotate(-12deg);
+      font-size: clamp(95px, 15vw, 180px);
+      opacity: .12;
+      user-select: none;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+    }
+
+    .section-head span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 17px;
+    }
+
+    .game {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel);
+      transition: transform .18s, border-color .18s;
+    }
+
+    .game:hover {
+      transform: translateY(-4px);
+      border-color: #547c59;
+    }
+
+    .cover {
+      min-height: 150px;
+      display: grid;
+      place-items: center;
+      font-size: 62px;
+      background:
+        radial-gradient(circle at 50% 45%, #355d3a, transparent 48%),
+        linear-gradient(135deg, #202b21, #101410);
+    }
+
+    .cover.blue {
+      background:
+        radial-gradient(circle, #254c68, transparent 55%),
+        linear-gradient(135deg, #172b3b, #101318);
+    }
+
+    .cover.purple {
+      background:
+        radial-gradient(circle, #593d76, transparent 55%),
+        linear-gradient(135deg, #30213d, #151119);
+    }
+
+    .cover.orange {
+      background:
+        radial-gradient(circle, #80502c, transparent 55%),
+        linear-gradient(135deg, #3c281a, #17120e);
+    }
+
+    .game-info {
+      padding: 16px;
+    }
+
+    .game-info h3 {
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    .game-info p {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .game-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .game-actions button {
+      flex: 1;
+      padding: 9px 8px;
+      font-size: 12px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .quick-links a {
+      color: var(--text);
+      text-decoration: none;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      padding: 12px 15px;
+      border-radius: 10px;
+    }
+
+    .quick-links a:hover {
+      color: var(--green);
+      border-color: var(--green);
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      padding: 35px;
+      color: var(--muted);
+      text-align: center;
+      border: 1px dashed var(--border);
+      border-radius: 15px;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 950px) {
+      .games {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-symbol {
+        right: 3%;
+        opacity: .08;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        padding: 15px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .logo {
+        margin: 0 0 12px 4px;
+      }
+
+      .nav-label, .sidebar-bottom {
+        display: none;
+      }
+
+      aside nav {
+        display: flex;
+        gap: 5px;
+        overflow-x: auto;
+      }
+
+      .nav-btn {
+        width: auto;
+        flex-shrink: 0;
+        margin: 0;
+      }
+
+      main {
+        padding: 22px 15px;
+      }
+
+      header {
+        align-items: stretch;
+        flex-direction: column-reverse;
+      }
+
+      .profile {
+        align-self: flex-end;
+      }
+
+      .games {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-symbol {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside>
+      <div class="logo">
+        <span class="logo-mark">R</span>
+        <span>RAVEX <span style="color:var(--green)">PLAY</span></span>
+      </div>
+
+      <nav aria-label="Navegación principal">
+        <div class="nav-label">MENÚ</div>
+        <button class="nav-btn active" data-view="all">🎮 Todos los juegos</button>
+        <button class="nav-btn" data-view="favorites">⭐ Favoritos</button>
+        <button class="nav-btn" data-view="added">➕ Mis juegos</button>
+
+        <div class="nav-label">DESCUBRIR</div>
+        <button class="nav-btn" data-view="all">🔥 Explorar</button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <strong style="color:var(--text)">RAVEX PLAY</strong><br>
+        Tu universo gaming.<br>
+        Versión 1.0
+      </div>
+    </aside>
+
+    <main>
+      <header>
+        <input
+          id="search"
+          class="search"
+          type="search"
+          placeholder="🔎 Buscar juegos..."
+          aria-label="Buscar juegos"
+        >
+
+        <div class="profile">
+          <div class="avatar">R</div>
+          <span>Mi espacio gaming</span>
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow">TU CENTRO GAMING</div>
+        <h1>Todo tu mundo.<br>Un solo lugar.</h1>
+        <p>
+          Tus juegos, tus plataformas y tus favoritos.
+          Bienvenido a tu próximo nivel con RAVEX PLAY.
+        </p>
+        <button class="primary" id="explore">Explorar biblioteca ↗</button>
+        <div class="hero-symbol" aria-hidden="true">▶</div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h2 id="sectionTitle">Tu biblioteca</h2>
+          <span id="gameCount">0 juegos</span>
+        </div>
+
+        <div class="games" id="games"></div>
+      </section>
+
+      <section style="margin-top:35px">
+        <div class="section-head">
+          <h2>Acceso rápido</h2>
+          <span>Tus plataformas</span>
+        </div>
+
+        <div class="quick-links">
+          <a href="https://www.xbox.com/play" target="_blank" rel="noopener noreferrer">🎮 Xbox</a>
+          <a href="https://www.minecraft.net/" target="_blank" rel="noopener noreferrer">⛏️ Minecraft</a>
+          <a href="https://store.steampowered.com/" target="_blank" rel="noopener noreferrer">🚀 Steam</a>
+          <a href="https://www.youtube.com/gaming" target="_blank" rel="noopener noreferrer">▶️ YouTube Gaming</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>© <span id="year"></span> RAVEX PLAY</span>
+        <span>Hecho para jugar. Diseñado para explorar.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const defaultGames = [
+      {
+        id: "minecraft",
+        title: "Minecraft",
+        category: "Sandbox · Creatividad",
+        emoji: "⛏️",
+        color: "",
+        url: "https://www.minecraft.net/",
+        favorite: false,
+        added: false
+      },
+      {
+        id: "xbox",
+        title: "Xbox",
+        category: "Tu universo Xbox",
+        emoji: "🎮",
+        color: "blue",
+        url: "https://www.xbox.com/",
+        favorite: true,
+        added: false
+      },
+      {
+        id: "steam",
+        title: "Steam",
+        category: "Tienda de videojuegos",
+        emoji: "🚀",
+        color: "purple",
+        url: "https://store.steampowered.com/",
+        favorite: false,
+        added: false
+      },
+      {
+        id: "youtube",
+        title: "YouTube Gaming",
+        category: "Videos y creadores",
+        emoji: "▶️",
+        color: "orange",
+        url: "https://www.youtube.com/gaming",
+        favorite: false,
+        added: false
+      },
+      {
+        id: "roblox",
+        title: "Roblox",
+        category: "Experiencias y mundos",
+        emoji: "🧱",
+        color: "blue",
+        url: "https://www.roblox.com/",
+        favorite: false,
+        added: false
+      },
+      {
+        id: "epic",
+        title: "Epic Games",
+        category: "Juegos y descubrimientos",
+        emoji: "🌌",
+        color: "purple",
+        url: "https://store.epicgames.com/",
+        favorite: false,
+        added: false
+      }
+    ];
+
+    const STORAGE_KEY = "ravexplay.library.v1";
+
+    let games = loadGames();
+    let currentView = "all";
+
+    const gamesContainer = document.getElementById("games");
+    const searchInput = document.getElementById("search");
+    const gameCount = document.getElementById("gameCount");
+    const sectionTitle = document.getElementById("sectionTitle");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function loadGames() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return saved ? JSON.parse(saved) : structuredClone(defaultGames);
+      } catch {
+        return defaultGames.map(game => ({ ...game }));
+      }
+    }
+
+    function saveGames() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
+    }
+
+    function renderGames() {
+      const query = searchInput.value.trim().toLowerCase();
+
+      const filtered = games.filter(game => {
+        const matchesSearch =
+          game.title.toLowerCase().includes(query) ||
+          game.category.toLowerCase().includes(query);
+
+        const matchesView =
+          currentView === "all" ||
+          (currentView === "favorites" && game.favorite) ||
+          (currentView === "added" && game.added);
+
+        return matchesSearch && matchesView;
+      });
+
+      const titles = {
+        all: "Tu biblioteca",
+        favorites: "Tus favoritos",
+        added: "Mis juegos"
+      };
+
+      sectionTitle.textContent = titles[currentView] || "Tu biblioteca";
+      gameCount.textContent =
+        `${filtered.length} ${filtered.length === 1 ? "juego" : "juegos"}`;
+
+      if (!filtered.length) {
+        gamesContainer.innerHTML =
+          '<div class="empty">No hay juegos aquí todavía. Prueba otra búsqueda.</div>';
+        return;
+      }
+
+      gamesContainer.innerHTML = filtered.map(game => `
+        <article class="game">
+          <div class="cover ${escapeHTML(game.color || "")}">
+            ${escapeHTML(game.emoji)}
+          </div>
+          <div class="game-info">
+            <h3>${escapeHTML(game.title)}</h3>
+            <p>${escapeHTML(game.category)}</p>
+            <div class="game-actions">
+              <button class="primary" data-action="open" data-id="${escapeHTML(game.id)}">
+                Abrir ↗
+              </button>
+              <button class="secondary" data-action="favorite" data-id="${escapeHTML(game.id)}"
+                aria-label="Cambiar favorito">
+                ${game.favorite ? "⭐" : "☆"}
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function escapeHTML(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[char]);
+    }
+
+    gamesContainer.addEventListener("click", event => {
+      const button = event.target.closest("button[data-action]");
+      if (!button) return;
+
+      const game = games.find(item => item.id === button.dataset.id);
+      if (!game) return;
+
+      if (button.dataset.action === "open") {
+        window.open(game.url, "_blank", "noopener,noreferrer");
+      }
+
+      if (button.dataset.action === "favorite") {
+        game.favorite = !game.favorite;
+        saveGames();
+        renderGames();
+      }
+    });
+
+    document.querySelectorAll(".nav-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        currentView = button.dataset.view;
+
+        document.querySelectorAll(".nav-btn").forEach(item => {
+          item.classList.toggle("active", item === button);
+        });
+
+        renderGames();
+      });
+    });
+
+    searchInput.addEventListener("input", renderGames);
+
+    document.getElementById("explore").addEventListener("click", () => {
+      document.getElementById("games").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    renderGames();
+  </script>
+</body>
+</html>
