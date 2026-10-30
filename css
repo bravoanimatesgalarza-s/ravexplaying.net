@@ -1,0 +1,48 @@
+
+.auth-panel {
+  max-width: 440px;
+  margin: 50px auto;
+  padding: 30px;
+  background: #141714;
+  border: 1px solid #292f29;
+  border-radius: 18px;
+}
+
+.auth-panel h1,
+.auth-panel h3,
+.auth-panel p,
+.auth-panel label {
+  display: block;
+  margin-bottom: 14px;
+}
+
+.auth-panel input,
+.auth-panel button {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 12px;
+  border-radius: 9px;
+}
+
+.auth-panel input {
+  color: white;
+  background: #0b0d0b;
+  border: 1px solid #394239;
+}
+
+.auth-panel button {
+  cursor: pointer;
+  color: #071109;
+  background: #70f58a;
+  border: 0;
+  font-weight: bold;
+}
+
+.auth-panel button.active {
+  outline: 2px solid white;
+}
+
+#authStatus {
+  color: #70f58a;
+}
